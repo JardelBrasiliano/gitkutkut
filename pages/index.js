@@ -1,42 +1,49 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 //Import estilos
 import MainGrid from '../src/styles/components/MainGrid';
 import Box from '../src/styles/components/Box';
 import { AlurakutMenu, OrkutNostalgicIconSet } from '../src/lib/AlurakutCommons';
-import { ProfileRelationsBoxWrapper } from '../src/styles/components/ProfileRelations';
 
 //Import Componentes
 import ProfileSidebar from '../src/components/ProfileSidebar';
 import ListProfilesOrCommunity from '../src/components/ListProfilesOrcommunity';
 
+//api
+import { getInfoUser, getListAllFollowers, getListAllFollowing } from '../src/services/apiRequestGitHub';
+
 export default function Home() {
+  //const [infoGitHubApi, setInfoGitHubApi] = useState({});
+  const [listFollowers, setListFollowers] = useState([]);//seguidores
+  const [listFollowings, setListFollowings] = useState([]);//seguindo
+
   const [comunidades, setComunidades] = useState([{
     id: '123456',
     title: 'Eu Odeio acordar cedo',
-    image: 'https://alurakut.vercel.app/capa-comunidade-01.jpg'
+    image_url: 'https://alurakut.vercel.app/capa-comunidade-01.jpg',
+    html_url: '/community/Eu_Odeio_acordar_cedo'
   }])
+  
   const usuarioAleatorio = 'JardelBrasiliano';
-  const pessoasFavoritas = [
-    'juunegreiros',
-    'omariosouto',
-    'peas',
-    'rafaballerini',
-    'marcobrunodev',
-    'felipefialho'
-  ]
 
   function handleCriarComunidade(e) {
     e.preventDefault();
     const dadosDoForm = new FormData(e.target);
-    
+
     const comunidade = {
       id: new Date().toISOString(),
       title: dadosDoForm.get('title'),
       image: dadosDoForm.get('image'),
+      url: `/community/${dadosDoForm.get('title').replace(/ /g, "_")}`,
     }
     const comunidadeAtualizadas = [...comunidades, comunidade];
     setComunidades(comunidadeAtualizadas);
   }
+
+  useEffect(() => {
+    //getInfoUser(usuarioAleatorio, setInfoGitHubApi);
+    getListAllFollowers(usuarioAleatorio, setListFollowers);
+    getListAllFollowing(usuarioAleatorio, setListFollowings);
+  }, [])
 
   return (
     <>
@@ -51,7 +58,7 @@ export default function Home() {
             <h1 className="title">
               Bem vindo(a), {usuarioAleatorio} 
             </h1>
-
+            
             <OrkutNostalgicIconSet />
           </Box>
 
@@ -82,20 +89,18 @@ export default function Home() {
         </div>
         
         <div className="profileRelationsArea" style={{ gridArea: 'profileRelationsArea' }}>
-          <ProfileRelationsBoxWrapper>
             <ListProfilesOrCommunity
-              title="Comunidade"
-              list={comunidades}
-              community={true}
+              title="Seguidores"
+              list={listFollowers}
             />
-          </ProfileRelationsBoxWrapper>
-
-          <ProfileRelationsBoxWrapper>
             <ListProfilesOrCommunity
-              title="Pessoas da comunidade"
-              list={pessoasFavoritas}
+              title="Seguindo"
+              list={listFollowings}
             />
-          </ProfileRelationsBoxWrapper>
+            <ListProfilesOrCommunity
+              title="Comunidades"
+              list={comunidades} 
+            />
         </div>
       </MainGrid>
     </>

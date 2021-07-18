@@ -1,28 +1,32 @@
 import React from 'react';
 
-const ListProfilesOrComunite = ({title, list, community}) => {
+import { ProfileRelationsBoxWrapper } from '../../styles/components/ProfileRelations';
+
+const ListProfilesOrComunite = ({title, list}) => {
   return (
     <>
-      <h2 className="smallTitle">
-        {title} ({list.length})
-      </h2>
+      <ProfileRelationsBoxWrapper>
+        <h2 className="smallTitle">
+          {title} ({list.length})
+        </h2>
 
-      <ul>
-        {list.map((itemAtual, index) => {
-          if(index <= 5){
-            return (
-              <li key={community ? itemAtual.id : itemAtual}>
-                <a href={community ? `/community/${itemAtual.title}` : `/users/${itemAtual}`}>
-                  <img src={community ? itemAtual.image : `https://github.com/${itemAtual}.png`} />
-                  <span>{community ? itemAtual.title : itemAtual}</span>
-                </a>
-              </li>
-            )
-          }else{
-            return '';
-          }
-        })}
-      </ul>
+        <ul>
+          {list.map((itemAtual, index) => {
+            if(index <= 5){
+              return (
+                <li key={itemAtual.id}>
+                  <a href={itemAtual.html_url}>
+                    <img src={itemAtual.image_url} />
+                    <span>{itemAtual.title}</span>
+                  </a>
+                </li>
+              )
+            }else{
+              return '';
+            }
+          })}
+        </ul>
+      </ProfileRelationsBoxWrapper>
     </>
   ) 
 }

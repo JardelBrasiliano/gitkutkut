@@ -2,6 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import NextLink from 'next/link';
 
+
 const BASE_URL = 'http://alurakut.vercel.app/';
 const v = '1';
 
@@ -48,7 +49,9 @@ export function AlurakutMenu({ githubUser }) {
           {!isMenuOpen && <img src={`${BASE_URL}/icons/menu-closed.svg?v=${v}`} />}
         </button>
       </div>
-      <AlurakutMenuProfileSidebar githubUser={githubUser} />
+      {
+      githubUser && <AlurakutMenuProfileSidebar githubUser={githubUser} />
+      }
     </AlurakutMenu.Wrapper>
   )
 }
@@ -267,7 +270,6 @@ export function OrkutNostalgicIconSet(props) {
       {[
         { name: 'Confiável', slug: 'confiavel', icon: 'smile' },
         { name: 'Legal', slug: 'legal', icon: 'cool' },
-        { name: 'Sexy', slug: 'sexy', icon: 'heart' },
       ].map(({ name, slug, icon }) => {
         const total = props[slug] ? props[slug] : 2;
         return (
