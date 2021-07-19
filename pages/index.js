@@ -10,18 +10,13 @@ import ListProfilesOrCommunity from '../src/components/ListProfilesOrcommunity';
 
 //api
 import { getInfoUser, getListAllFollowers, getListAllFollowing } from '../src/services/apiRequestGitHub';
+import { getListCommunity, createNewCommunity } from '../src/services/apiResquestDatoCMS';
 
 export default function Home() {
   //const [infoGitHubApi, setInfoGitHubApi] = useState({});
   const [listFollowers, setListFollowers] = useState([]);//seguidores
   const [listFollowings, setListFollowings] = useState([]);//seguindo
-
-  const [comunidades, setComunidades] = useState([{
-    id: '123456',
-    title: 'Eu Odeio acordar cedo',
-    image_url: 'https://alurakut.vercel.app/capa-comunidade-01.jpg',
-    html_url: '/community/Eu_Odeio_acordar_cedo'
-  }])
+  const [community, setCommunity] = useState([]);//Comunidades
   
   const usuarioAleatorio = 'JardelBrasiliano';
 
@@ -30,19 +25,18 @@ export default function Home() {
     const dadosDoForm = new FormData(e.target);
 
     const comunidade = {
-      id: new Date().toISOString(),
       title: dadosDoForm.get('title'),
-      image: dadosDoForm.get('image'),
-      url: `/community/${dadosDoForm.get('title').replace(/ /g, "_")}`,
+      imageUrl: dadosDoForm.get('image'),
+      htmlUrl: `/community/${dadosDoForm.get('title').replace(/ /g, "_")}`,
     }
-    const comunidadeAtualizadas = [...comunidades, comunidade];
-    setComunidades(comunidadeAtualizadas);
+    createNewCommunity(comunidade, community, setCommunity);
   }
 
   useEffect(() => {
     //getInfoUser(usuarioAleatorio, setInfoGitHubApi);
     getListAllFollowers(usuarioAleatorio, setListFollowers);
     getListAllFollowing(usuarioAleatorio, setListFollowings);
+    getListCommunity(setCommunity);
   }, [])
 
   return (
@@ -99,7 +93,7 @@ export default function Home() {
             />
             <ListProfilesOrCommunity
               title="Comunidades"
-              list={comunidades} 
+              list={community} 
             />
         </div>
       </MainGrid>

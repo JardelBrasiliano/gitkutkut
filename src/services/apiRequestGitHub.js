@@ -1,11 +1,7 @@
 function getInfoUser(user, setInfo) {
   fetch(`https://api.github.com/users/${user}`)
-  .then((response) =>{
-      return response.json();     
-    }
-  )
-  .then((response) => {
-    const { id, name, avatar_url, public_repos, followers, following} = response;
+  .then(async (response) =>{
+    const { id, name, avatar_url, public_repos, followers, following} = await response.json();
     const objectUser = {
       id, 
       name, 
@@ -14,51 +10,47 @@ function getInfoUser(user, setInfo) {
       followers, 
       following,
     }
-    setInfo(objectUser);
-  }) 
+    setInfo(objectUser);   
+    }
+  )
 }
 
 function getListAllFollowing(user, setInfo) {
   fetch(`https://api.github.com/users/${user}/following`)
-  .then((response) =>{
-      return response.json();     
-    }
-  )
-  .then((response) => {
-    
-    const listFinalResquest = response.map((following) => {
+  .then(async (response) =>{
+    const listFinalResquest = await response.json();
+    const newListFinalResquest = listFinalResquest.map((following) => {
       const { id, html_url, avatar_url, login} = following;
       const objectListFollowing = {
         id, 
         title: login,
         html_url, 
         image_url: avatar_url, 
-      }
+      };
       return objectListFollowing;
     })
-    setInfo(listFinalResquest);
-  }) 
+    setInfo(newListFinalResquest);  
+    }
+  )
 }
 
 function getListAllFollowers(user, setInfo) {
   fetch(`https://api.github.com/users/${user}/followers`)
-  .then((response) =>{
-      return response.json();     
+  .then(async (response) =>{
+      const listFinalResquest = await response.json();
+      const newListFinalResquest = listFinalResquest.map((following) => {
+        const { id, html_url, avatar_url, login} = following;
+        const objectListFollowing = {
+          id, 
+          title: login,
+          html_url, 
+          image_url: avatar_url, 
+        }
+        return objectListFollowing;
+      })
+      setInfo(newListFinalResquest); 
     }
   )
-  .then((response) => {
-    const listFinalResquest = response.map((following) => {
-      const { id, html_url, avatar_url, login} = following;
-      const objectListFollowing = {
-        id, 
-        title: login,
-        html_url, 
-        image_url: avatar_url, 
-      }
-      return objectListFollowing;
-    })
-    setInfo(listFinalResquest);
-  }) 
 }
 
 export { getInfoUser, getListAllFollowing, getListAllFollowers};

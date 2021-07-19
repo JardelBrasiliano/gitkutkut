@@ -15,8 +15,8 @@ const ListProfilesOrComunite = ({title, list}) => {
             if(index <= 5){
               return (
                 <li key={itemAtual.id}>
-                  <a href={itemAtual.html_url}>
-                    <img src={itemAtual.image_url} />
+                  <a href={itemAtual.html_url || itemAtual.htmlUrl}>
+                    <img src={itemAtual.image_url || itemAtual.imageUrl} />
                     <span>{itemAtual.title}</span>
                   </a>
                 </li>
