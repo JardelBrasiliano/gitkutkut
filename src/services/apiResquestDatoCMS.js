@@ -1,7 +1,6 @@
 const API_TOKEN_READ = process.env.NEXT_PUBLIC_TOKEN_READ_DATO;
 
 async function getListCommunity(setCommunity) {
-  console.log(process.env.NEXT_PUBLIC_TESTE);
   fetch('https://graphql.datocms.com/', {
     method: 'POST',
     headers: {

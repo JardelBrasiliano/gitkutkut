@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import nookies from 'nookies';
+import jwt from 'jsonwebtoken';
 //Import estilos
 import MainGrid from '../src/styles/components/MainGrid';
 import Box from '../src/styles/components/Box';
@@ -12,13 +14,14 @@ import ListProfilesOrCommunity from '../src/components/ListProfilesOrcommunity';
 import { getInfoUser, getListAllFollowers, getListAllFollowing } from '../src/services/apiRequestGitHub';
 import { getListCommunity, createNewCommunity } from '../src/services/apiResquestDatoCMS';
 
-export default function Home() {
+export default function Home(props) {
   //const [infoGitHubApi, setInfoGitHubApi] = useState({});
   const [listFollowers, setListFollowers] = useState([]);//seguidores
   const [listFollowings, setListFollowings] = useState([]);//seguindo
   const [community, setCommunity] = useState([]);//Comunidades
   
-  const usuarioAleatorio = 'JardelBrasiliano';
+  console.log('USER ->', props.githubUser);
+  const usuarioAleatorio = props.githubUser;
 
   function handleCriarComunidade(e) {
     e.preventDefault();
@@ -99,4 +102,27 @@ export default function Home() {
       </MainGrid>
     </>
   )
+}
+
+export async function getServerSideProps(context) {
+  const cookies = nookies.get(context);
+  const token = cookies.USER_TOKEN;
+
+  const decodedToken = jwt.decode(token);
+  const githubUser = decodedToken?.githubUser;
+  
+  if (!githubUser) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false,
+      },
+    }
+  }
+  
+  return {
+    props: {
+      githubUser
+    },
+  }
 }
