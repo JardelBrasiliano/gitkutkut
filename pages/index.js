@@ -5,23 +5,19 @@ import jwt from 'jsonwebtoken';
 import MainGrid from '../src/styles/components/MainGrid';
 import Box from '../src/styles/components/Box';
 import { AlurakutMenu, OrkutNostalgicIconSet } from '../src/lib/AlurakutCommons';
-
 //Import Componentes
 import ProfileSidebar from '../src/components/ProfileSidebar';
 import ListProfilesOrCommunity from '../src/components/ListProfilesOrcommunity';
-
 //api
 import { getInfoUser, getListAllFollowers, getListAllFollowing } from '../src/services/apiRequestGitHub';
 import { getListCommunity, createNewCommunity } from '../src/services/apiResquestDatoCMS';
 
-export default function Home(props) {
+export default function Home({ githubUser }) {
+  const [userLogged, setUserLogged] = useState(githubUser);
   //const [infoGitHubApi, setInfoGitHubApi] = useState({});
-  const [listFollowers, setListFollowers] = useState([]);//seguidores
-  const [listFollowings, setListFollowings] = useState([]);//seguindo
-  const [community, setCommunity] = useState([]);//Comunidades
-  
-  console.log('USER ->', props.githubUser);
-  const usuarioAleatorio = props.githubUser;
+  const [listFollowers, setListFollowers] = useState([]);
+  const [listFollowings, setListFollowings] = useState([]);
+  const [community, setCommunity] = useState([]);
 
   function handleCriarComunidade(e) {
     e.preventDefault();
@@ -36,10 +32,11 @@ export default function Home(props) {
   }
 
   useEffect(() => {
-    //getInfoUser(usuarioAleatorio, setInfoGitHubApi);
-    getListAllFollowers(usuarioAleatorio, setListFollowers);
-    getListAllFollowing(usuarioAleatorio, setListFollowings);
+    //getInfoUser(userLogged, setInfoGitHubApi);
+    getListAllFollowers(userLogged, setListFollowers);
+    getListAllFollowing(userLogged, setListFollowings);
     getListCommunity(setCommunity);
+    setUserLogged(githubUser)
   }, [])
 
   return (
@@ -47,13 +44,13 @@ export default function Home(props) {
       <AlurakutMenu />
       <MainGrid>
         <div className="profileArea" style={{ gridArea: 'profileArea' }}>
-            <ProfileSidebar gitHubUser={usuarioAleatorio} />
+            <ProfileSidebar gitHubUser={userLogged} />
         </div>
         
         <div className="welcomeArea" style={{ gridArea: 'welcomeArea' }}>
           <Box>
             <h1 className="title">
-              Bem vindo(a), {usuarioAleatorio} 
+              Bem vindo(a), {userLogged} 
             </h1>
             
             <OrkutNostalgicIconSet />

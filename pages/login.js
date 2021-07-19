@@ -1,11 +1,20 @@
 import React from 'react';
-// Hook do NextJS
-import { useRouter } from 'next/router';
 import nookies from 'nookies';
+import jwt from 'jsonwebtoken';
+
+import { useRouter } from 'next/router';
+import { singInAuth } from '../src/services/apiAuth';
 
 export default function LoginScreen() {
   const router = useRouter();
   const [githubUser, setGithubUser] = React.useState('omariosouto');
+
+  function singIn(e) {
+    e.preventDefault();
+    singInAuth(githubUser);
+    
+    router.push('/')
+  }
 
   return (
     <main style={{ display: 'flex', flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -19,27 +28,7 @@ export default function LoginScreen() {
         </section>
 
         <section className="formArea">
-          <form className="box" onSubmit={(infosDoEvento) => {
-                infosDoEvento.preventDefault();
-                console.log('Usuário: ', githubUser)
-                fetch('https://alurakut.vercel.app/api/login', {
-                    method: 'POST',
-                    headers: {
-                       'Content-Type': 'application/json'  
-                    },
-                    body: JSON.stringify({ githubUser: githubUser })
-                })
-                .then(async (respostaDoServer) => {
-                    const dadosDaResposta = await respostaDoServer.json()
-                    const token = dadosDaResposta.token;
-                    console.log('TOKEN', token);
-                    nookies.set(null, 'USER_TOKEN', token, {
-                        path: '/',
-                        maxAge: 86400 * 7 
-                    })
-                    router.push('/')
-                })
-          }}>
+          <form className="box" onSubmit={(e) => singIn(e)}>
             <p>
               Acesse agora mesmo com seu usuário do <strong>GitHub</strong>!
           </p>
@@ -80,3 +69,26 @@ export default function LoginScreen() {
     </main>
   )
 } 
+
+export async function getServerSideProps(context) {
+  const cookies = nookies.get(context);
+  const token = cookies.USER_TOKEN;
+
+  const decodedToken = jwt.decode(token);
+  const githubUser = decodedToken?.githubUser;
+  
+  if (githubUser) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    }
+  }
+  
+  return {
+    props: {
+      githubUser
+    },
+  }
+}
