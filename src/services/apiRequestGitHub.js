@@ -1,4 +1,4 @@
-function getInfoUser(user, setInfo) {
+const getInfoUser = (user, setInfo) => {
   fetch(`https://api.github.com/users/${user}`)
   .then(async (response) =>{
     const { id, name, avatar_url, public_repos, followers, following} = await response.json();
@@ -15,7 +15,7 @@ function getInfoUser(user, setInfo) {
   )
 }
 
-function getListAllFollowing(user, setInfo) {
+const getListAllFollowing = (user, setInfo) => {
   fetch(`https://api.github.com/users/${user}/following`)
   .then(async (response) =>{
     const listFinalResquest = await response.json();
@@ -34,7 +34,7 @@ function getListAllFollowing(user, setInfo) {
   )
 }
 
-function getListAllFollowers(user, setInfo) {
+const getListAllFollowers = (user, setInfo) => {
   fetch(`https://api.github.com/users/${user}/followers`)
   .then(async (response) =>{
       const listFinalResquest = await response.json();

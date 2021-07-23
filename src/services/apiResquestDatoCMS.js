@@ -1,6 +1,6 @@
 const API_TOKEN_READ = process.env.NEXT_PUBLIC_TOKEN_READ_DATO;
 
-async function getListCommunity(setCommunity) {
+const getListCommunity = async (setCommunity) => {
   fetch('https://graphql.datocms.com/', {
     method: 'POST',
     headers: {
@@ -24,7 +24,7 @@ async function getListCommunity(setCommunity) {
   })
 }
 
-async function createNewCommunity(community, listCommunity, setCommunity) {
+const createNewCommunity = async (community, listCommunity, setCommunity) => {
   console.log('Mas uq issu', community);
   fetch('/api/community', { 
     method: 'POST', 

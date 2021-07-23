@@ -15,6 +15,8 @@ export async function getServerSideProps(ctx) {
     }
 }
 
-export default function Logout() {
+const Logout = () => {
     return <></>
 }
+
+export default Logout;

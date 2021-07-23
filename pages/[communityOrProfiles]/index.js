@@ -15,7 +15,7 @@ const LISTA_DE_COMUNIDADES = [
   },
 ]
 
-function ListPaging({ last }) {
+const ListPaging = ({ last }) => {
   return (
     <ListPagingContent last={last}>
       <div className="paginas">
@@ -31,7 +31,7 @@ function ListPaging({ last }) {
   );
 }
 
-export default function ListComunidades() {
+const ListCommunity = () => {
   return (
     <>
       <AlurakutMenu />
@@ -76,3 +76,5 @@ export default function ListComunidades() {
     </>
   )
 }
+
+export default ListCommunity;

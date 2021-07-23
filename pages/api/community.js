@@ -2,7 +2,7 @@ import { SiteClient } from 'datocms-client';
 
 const API_TOKEN_SEED = process.env.NEXT_PUBLIC_TOKEN_FULL_DATO;
 
-export default async function seedNewCommunity(request, response) {
+const seedNewCommunity = async (request, response) => {
   if(request.method === 'POST'){
     const client = new SiteClient(API_TOKEN_SEED);
     const newCommunity = {
@@ -23,3 +23,5 @@ export default async function seedNewCommunity(request, response) {
     });
   }
 }
+
+export default seedNewCommunity;

@@ -12,23 +12,23 @@ import ListProfilesOrCommunity from '../src/components/ListProfilesOrcommunity';
 import { getInfoUser, getListAllFollowers, getListAllFollowing } from '../src/services/apiRequestGitHub';
 import { getListCommunity, createNewCommunity } from '../src/services/apiResquestDatoCMS';
 
-export default function Home({ githubUser }) {
+const Home = ({ githubUser }) => {
   const [userLogged, setUserLogged] = useState(githubUser);
   //const [infoGitHubApi, setInfoGitHubApi] = useState({});
   const [listFollowers, setListFollowers] = useState([]);
   const [listFollowings, setListFollowings] = useState([]);
   const [community, setCommunity] = useState([]);
 
-  function handleCriarComunidade(e) {
+  const handleCreateCommunity = (e) => {
     e.preventDefault();
-    const dadosDoForm = new FormData(e.target);
+    const formData = new FormData(e.target);
 
-    const comunidade = {
-      title: dadosDoForm.get('title'),
-      imageUrl: dadosDoForm.get('image'),
-      htmlUrl: `/community/${dadosDoForm.get('title').replace(/ /g, "_")}`,
+    const modelCommunity = {
+      title: formData.get('title'),
+      imageUrl: formData.get('image'),
+      htmlUrl: `/community/${formData.get('title').replace(/ /g, "_")}`,
     }
-    createNewCommunity(comunidade, community, setCommunity);
+    createNewCommunity(modelCommunity, community, setCommunity);
   }
 
   useEffect(() => {
@@ -41,7 +41,7 @@ export default function Home({ githubUser }) {
 
   return (
     <>
-      <AlurakutMenu />
+      <AlurakutMenu githubUser={userLogged}/>
       <MainGrid>
         <div className="profileArea" style={{ gridArea: 'profileArea' }}>
             <ProfileSidebar gitHubUser={userLogged} />
@@ -58,7 +58,7 @@ export default function Home({ githubUser }) {
 
           <Box>
             <h2 className="subTitle">O que você deseja fazer?</h2>
-            <form onSubmit={handleCriarComunidade}>
+            <form onSubmit={handleCreateCommunity}>
               <div>
                 <input 
                   placeholder="Qual vai ser o nome da sua comunidade?"
@@ -126,3 +126,5 @@ export async function getServerSideProps(context) {
     },
   }
 }
+
+export default Home;

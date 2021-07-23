@@ -1,6 +1,6 @@
 import nookies from 'nookies';
 
-async function singInAuth(githubUser, setLoading, push) {
+const singInAuth = async (githubUser, setLoading, push) => {
     fetch('https://alurakut.vercel.app/api/login', {
       method: 'POST',
       headers: {

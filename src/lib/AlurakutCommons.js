@@ -206,11 +206,7 @@ export function AlurakutProfileSidebarMenuDefault() {
           </a>
         <a href="/">
           <img src={`${BASE_URL}/icons/camera.svg`} />
-            Fotos
-          </a>
-        <a href="/">
-          <img src={`${BASE_URL}/icons/sun.svg`} />
-            Depoimentos
+            Comunidades
           </a>
       </nav>
       <hr />

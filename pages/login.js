@@ -5,12 +5,12 @@ import jwt from 'jsonwebtoken';
 import { useRouter } from 'next/router';
 import { singInAuth } from '../src/services/apiAuth';
 
-export default function LoginScreen() {
+const LoginScreen = () => {
   const router = useRouter();
   const [githubUser, setGithubUser] = useState('');
   const [loading, setLoading] = useState(false);
 
-  function singIn(e) {
+  const singIn = (e) => {
     e.preventDefault();
     setLoading(true);
     singInAuth(githubUser, setLoading, router.push);
@@ -92,3 +92,5 @@ export async function getServerSideProps(context) {
     },
   }
 }
+
+export default LoginScreen;
