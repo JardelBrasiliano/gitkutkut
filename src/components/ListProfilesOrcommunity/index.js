@@ -1,13 +1,16 @@
 import React from 'react';
+import Link from 'next/link';
 
-import { ProfileRelationsBoxWrapper } from '../../styles/components/ProfileRelations';
+import { ProfileRelationsBoxWrapper } from '../../styles/components/ProfileRelationsBoxWrapper';
 
-const ListProfilesOrComunite = ({title, list}) => {
+const ListProfilesOrComunite = ({title, list, link}) => {
   return (
     <>
       <ProfileRelationsBoxWrapper>
         <h2 className="smallTitle">
           {title} ({list.length})
+          <Link href={link}><a className="viewAll"> ver todos</a></Link>
+          
         </h2>
 
         <ul>

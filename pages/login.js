@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import nookies from 'nookies';
 import jwt from 'jsonwebtoken';
 
@@ -7,13 +7,13 @@ import { singInAuth } from '../src/services/apiAuth';
 
 export default function LoginScreen() {
   const router = useRouter();
-  const [githubUser, setGithubUser] = React.useState('omariosouto');
+  const [githubUser, setGithubUser] = useState('');
+  const [loading, setLoading] = useState(false);
 
   function singIn(e) {
     e.preventDefault();
-    singInAuth(githubUser);
-    
-    router.push('/')
+    setLoading(true);
+    singInAuth(githubUser, setLoading, router.push);
   }
 
   return (
@@ -44,7 +44,7 @@ export default function LoginScreen() {
                 : ''
             }
             <button type="submit">
-              Login
+              {loading ? 'Entrando...' : 'Login'}
             </button>
           </form>
 

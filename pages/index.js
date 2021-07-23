@@ -86,14 +86,17 @@ export default function Home({ githubUser }) {
             <ListProfilesOrCommunity
               title="Seguidores"
               list={listFollowers}
+              link="/seguidores"
             />
             <ListProfilesOrCommunity
               title="Seguindo"
               list={listFollowings}
+              link="/seguindo"
             />
             <ListProfilesOrCommunity
               title="Comunidades"
               list={community} 
+              link="/comunidades"
             />
         </div>
       </MainGrid>

@@ -29,6 +29,12 @@ const Box = styled.div`
     color: #333333;
     margin-bottom: 20px;
   }
+  .nav {
+    font-size: 14px;
+    color: #2E7BB4;
+    text-decoration: none;
+    font-weight: 500;
+  }
   hr {
     margin-top: 12px;
     margin-bottom: 8px;
