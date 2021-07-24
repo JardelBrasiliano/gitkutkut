@@ -1,6 +1,6 @@
 const API_TOKEN_READ = process.env.NEXT_PUBLIC_TOKEN_READ_DATO;
 
-const getListCommunity = async (setCommunity) => {
+const getListCommunity = async (userGithub, setCommunity) => {
   fetch('https://graphql.datocms.com/', {
     method: 'POST',
     headers: {
@@ -13,19 +13,21 @@ const getListCommunity = async (setCommunity) => {
         id
         title
         imageUrl
-        htmlUrl
+        description
+        members {
+          id
+          name
+        }
       }
     }`})
   })
   .then(async (response) => {
     const finalCommunity = await response.json();
-
     setCommunity(finalCommunity.data.allCommunities);
   })
 }
 
 const createNewCommunity = async (community, listCommunity, setCommunity) => {
-  console.log('Mas uq issu', community);
   fetch('/api/community', { 
     method: 'POST', 
     headers: {
@@ -35,16 +37,14 @@ const createNewCommunity = async (community, listCommunity, setCommunity) => {
   })
   .then(async (response) => {
     const dados = await response.json();
-
-    const { id, title, imageUrl, htmlUrl } = dados.createCommunity;
+    const { id, title, imageUrl } = dados.createCommunity;
     const actualCommunity = {
       id, 
       title,
       imageUrl, 
-      htmlUrl,
     }
 
-    const comunidadeAtualizada = [...listCommunity, actualCommunity];
+    const comunidadeAtualizada = [actualCommunity, ...listCommunity];
     setCommunity(comunidadeAtualizada);
   })
 }

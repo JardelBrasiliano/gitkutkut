@@ -48,10 +48,31 @@ const Box = styled.div`
     border: 0;
     padding: 14px 16px;
     margin-bottom: 14px;
-    border-radius: 10000px;
+    border-radius: 10px;
     ::placeholder {
       color: #333333;
       opacity: 1;
+    }
+  }
+  textarea {
+    font-family: sans-serif;
+    transition: .3s;
+    outline: 0;
+    width: 100%;
+    background-color: #F4F4F4;
+    color: #333333;
+    border: 0;
+    padding: 14px 16px;
+    margin-bottom: 13px;
+    border-radius: 10px;
+    resize: vertical;
+    outline: none;
+    ::placeholder {
+      color: #333333;
+      opacity: 1;
+    }
+    :focus:hover {
+      box-shadow: 0px 0px 5px #33333357;
     }
   }
   button {

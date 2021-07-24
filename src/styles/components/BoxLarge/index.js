@@ -41,6 +41,9 @@ const BoxLarge = styled.div`
     img {
       margin-right: 8px;
       height: 100%;
+      width: 100%;
+      max-width: 94px;
+      max-height: 94px;
       border-radius: 5px;
     }
   }

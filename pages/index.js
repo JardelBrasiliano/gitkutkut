@@ -26,7 +26,9 @@ const Home = ({ githubUser }) => {
     const modelCommunity = {
       title: formData.get('title'),
       imageUrl: formData.get('image'),
-      htmlUrl: `/community/${formData.get('title').replace(/ /g, "_")}`,
+      member: githubUser,
+      description: formData.get('description'),
+      author: githubUser,
     }
     createNewCommunity(modelCommunity, community, setCommunity);
   }
@@ -35,7 +37,7 @@ const Home = ({ githubUser }) => {
     //getInfoUser(userLogged, setInfoGitHubApi);
     getListAllFollowers(userLogged, setListFollowers);
     getListAllFollowing(userLogged, setListFollowings);
-    getListCommunity(setCommunity);
+    getListCommunity(userLogged, setCommunity);
     setUserLogged(githubUser)
   }, [])
 
@@ -65,6 +67,14 @@ const Home = ({ githubUser }) => {
                   name="title"
                   aria-label="Qual vai ser o nome da sua comunidade?"
                   type="text"
+                />
+              </div>
+              <div>
+                <textarea 
+                  placeholder="Resume com no maximo 185 caracteres a sua comunidade."
+                  name="description"
+                  aria-label="Resume com no maximo 185 caracteres a sua comunidade."
+                  rows="5"
                 />
               </div>
               <div>
