@@ -4,7 +4,7 @@ const ListPagingContent = styled.div`
   display: flex;
   align-items: ${props => props.last ? 'flex-end' : 'center'};
   justify-content: space-between;
-  margin-bottom: 5px;
+  margin: 2px 0 ;
   flex: ${props => props.last ? 1 : 0};
   
   font-size: 14px;

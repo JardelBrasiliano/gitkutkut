@@ -28,7 +28,7 @@ export function AlurakutMenu({ githubUser }) {
         <AlurakutMenu.Logo src={`${BASE_URL}/logo.svg`} />
 
         <nav style={{ flex: 1 }}>
-          {[{ name: 'Inicio', slug: '/'}, {name: 'Amigos', slug: '/amigos'}, {name: 'Comunidades', slug: '/comunidades'}].map((menuItem) => (
+          {[{ name: 'Inicio', slug: '/'}, {name: 'Seguindo', slug: '/seguindo'}, {name: 'Seguidores', slug: '/seguidores'}, {name: 'Comunidades', slug: '/comunidades'}].map((menuItem) => (
             <Link key={`key__${menuItem.name.toLocaleLowerCase()}`} href={`${menuItem.slug.toLocaleLowerCase()}`}>
               {menuItem.name}
             </Link>
@@ -196,29 +196,29 @@ export function AlurakutProfileSidebarMenuDefault() {
   return (
     <AlurakutProfileSidebarMenuDefault.Wrapper>
       <nav>
-        <a href="/">
+        <Link href="/perfil">
           <img src={`${BASE_URL}/icons/user.svg`} />
             Perfil
-          </a>
-        <a href="/">
+          </Link>
+        <Link href="/meus-recados">
           <img src={`${BASE_URL}/icons/book.svg`} />
             Recados
-          </a>
-        <a href="/">
+          </Link>
+        <Link href="/minhas-comunidades">
           <img src={`${BASE_URL}/icons/camera.svg`} />
             Comunidades
-          </a>
+          </Link>
       </nav>
       <hr />
       <nav>
-        <a href="/">
+        <Link href="/novidades">
           <img src={`${BASE_URL}/icons/plus.svg`} />
-            GitHub Trends
-          </a>
-        <a href="/logout">
+            Explorar
+          </Link>
+        <Link href="/logout">
           <img src={`${BASE_URL}//icons/logout.svg`} />
             Sair
-          </a>
+          </Link>
       </nav>
     </AlurakutProfileSidebarMenuDefault.Wrapper>
   )
