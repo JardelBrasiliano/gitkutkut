@@ -9,8 +9,8 @@ import { AlurakutMenu, OrkutNostalgicIconSet } from '../src/lib/AlurakutCommons'
 import ProfileSidebar from '../src/components/ProfileSidebar';
 import ListProfilesOrCommunity from '../src/components/ListProfilesOrcommunity';
 //api
-import { getInfoUser, getListAllFollowers, getListAllFollowing } from '../src/services/apiRequestGitHub';
-import { getListCommunity, createNewCommunity } from '../src/services/apiResquestDatoCMS';
+import { getListAllFollowers, getListAllFollowing } from '../src/services/apiRequestGitHub';
+import { createNewCommunity, getMyCommunity } from '../src/services/apiResquestDatoCMS';
 
 const Home = ({ githubUser }) => {
   const [userLogged, setUserLogged] = useState(githubUser);
@@ -22,11 +22,13 @@ const Home = ({ githubUser }) => {
   const handleCreateCommunity = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
+    const formatimagUrl = `https://github.com/${githubUser}.png`;
 
     const modelCommunity = {
       title: formData.get('title'),
       imageUrl: formData.get('image'),
       member: githubUser,
+      githubUserImage: formatimagUrl,
       description: formData.get('description'),
       author: githubUser,
     }
@@ -37,7 +39,7 @@ const Home = ({ githubUser }) => {
     //getInfoUser(userLogged, setInfoGitHubApi);
     getListAllFollowers(userLogged, setListFollowers);
     getListAllFollowing(userLogged, setListFollowings);
-    getListCommunity(userLogged, setCommunity);
+    getMyCommunity(userLogged, setCommunity);
     setUserLogged(githubUser)
   }, [])
 
@@ -106,7 +108,7 @@ const Home = ({ githubUser }) => {
             <ListProfilesOrCommunity
               title="Comunidades"
               list={community} 
-              link="/comunidades"
+              link="/minhas-comunidades"
             />
         </div>
       </MainGrid>

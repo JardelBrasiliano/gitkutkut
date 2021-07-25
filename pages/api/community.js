@@ -11,7 +11,8 @@ const seedNewCommunity = async (request, response) => {
       members: [
         buildModularBlock({
           itemType: "1005753",
-          name: request.body.member,
+          title: request.body.member,
+          image_url: request.body.githubUserImage,
         })
       ],
       imageUrl: request.body.imageUrl, 

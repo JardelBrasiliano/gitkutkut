@@ -45,6 +45,7 @@ const ListAllProfileOrCommunity = ({listComplete}) => {
 					const corDeFundo = index%2 !== 0 ? '#F1F9FE' : '#D9E6F6';
 					const baseUrl = !!actualValue.image_url ? 'perfil' : 'comunidade' ;
 					const imagem = actualValue.image_url || actualValue.imageUrl;
+					
 					return (
 						<li className="community" key={actualValue.title} style={{backgroundColor: corDeFundo}} key={`ProfileOrCommunity-${actualValue.id}-${actualValue.title}`}>
 							<img src={imagem} alt="Foto" />
@@ -57,7 +58,7 @@ const ListAllProfileOrCommunity = ({listComplete}) => {
 										<div className="descripton">
 											<p>{actualValue.description}</p>
 										</div>
-										<p className="autor"> autor: <Link href="#"><a>{actualValue.author}</a></Link></p>
+										<p className="autor"> autor: <Link href={`perfil/${actualValue.author}`}><a>{actualValue.author}</a></Link></p>
 									</>
 									:
 									<></>

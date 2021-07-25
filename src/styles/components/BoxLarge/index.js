@@ -70,6 +70,12 @@ const BoxLarge = styled.div`
       color: var(--colorPrimary);
     }
   }
+  .nadaAqui {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   li:first-child{
     border-radius: 5px 5px 0 0;
   }

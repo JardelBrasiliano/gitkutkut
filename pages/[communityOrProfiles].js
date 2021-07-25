@@ -10,10 +10,10 @@ import ListAllProfileOrCommunity from "../src/components/ListAllProfileOrCommuni
 //Styles
 import BoxLarge from "../src/styles/components/BoxLarge";
 import MainGridPagesList from "../src/styles/components/MainGridPagesList";
-import { ListPagingContent } from '../src/styles/components/ListPagingContent';
+import ListPaging from '../src/components/ListPaging';
 //api
 import { getListAllFollowers, getListAllFollowing } from '../src/services/apiRequestGitHub';
-import { getListCommunity } from '../src/services/apiResquestDatoCMS';
+import { getListCommunity, getMyCommunity } from '../src/services/apiResquestDatoCMS';
 
 const OPTIONS_FOR_PAGES = {
   comunidades: { 
@@ -22,7 +22,7 @@ const OPTIONS_FOR_PAGES = {
   },
   minhas_comunidades: { 
     title: 'Minhas comunidades', 
-    fuction: () => 'sem funcao ainda'
+    fuction: getMyCommunity
   },
   seguindo: { 
     title: 'Seguindo',
@@ -33,23 +33,6 @@ const OPTIONS_FOR_PAGES = {
     fuction: getListAllFollowers
   },
 }
-
-const ListPaging = ({ last }) => {
-  return (
-    <ListPagingContent last={last}>
-      <div className="paginas">
-        <p>mostrando 1 - 11 de 11</p>
-      </div>
-      <div className="navegacao">
-        <button>primeira |</button>
-        <button> {'< '}anterior</button>
-        <button>| próxima {' >'}</button>
-        <button>| última</button>
-      </div>
-    </ListPagingContent>
-  );
-}
-
 
 const ListCommunity = ({githubUser}) => {
   const router = useRouter()
@@ -62,6 +45,7 @@ const ListCommunity = ({githubUser}) => {
     if (communityOrProfiles) {
       const pageFormatted = communityOrProfiles.replace('-', '_');
       const checkIfThereIs = OPTIONS_FOR_PAGES[pageFormatted];
+      
       if (!!checkIfThereIs) {    
         setActualPage(checkIfThereIs.title);
         checkIfThereIs.fuction(githubUser, setListActual);
@@ -90,11 +74,18 @@ const ListCommunity = ({githubUser}) => {
                 <p className="nav"><Link href="/">Inicio</Link> {"->"} <a href="#">{actualPage}</a></p>
               <hr />
               
-              <ListPaging />
+              {
+                listActual.length > 0 ?
+                <>
+                  <ListPaging />
                 
-              <ListAllProfileOrCommunity listComplete={listActual}/>
-              
-              <ListPaging last={true}/>
+                  <ListAllProfileOrCommunity listComplete={listActual}/>
+                  
+                  <ListPaging last={true}/> 
+                </> 
+                :
+                <div className="nadaAqui"><h2>Nada aqui</h2></div>
+              }
               
             </BoxLarge>
 

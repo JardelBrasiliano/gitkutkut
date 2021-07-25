@@ -15,13 +15,17 @@ const ListProfilesOrComunite = ({title, list, link}) => {
 
         <ul>
           {list.map((itemAtual, index) => {
+            const idForLink = itemAtual.html_url ? 'perfil' : 'comunidade'; 
+
             if(index <= 5){
               return (
                 <li key={itemAtual.id}>
-                  <a href={itemAtual.html_url || itemAtual.htmlUrl}>
-                    <img src={itemAtual.image_url || itemAtual.imageUrl} />
-                    <span>{itemAtual.title}</span>
-                  </a>
+                  <Link href={`/${idForLink}/${itemAtual.title}`}>
+                    <a>
+                      <img src={itemAtual.image_url || itemAtual.imageUrl} />
+                      <span>{itemAtual.title}</span>
+                    </a>
+                  </Link>
                 </li>
               )
             }else{
