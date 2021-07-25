@@ -4,7 +4,7 @@ import Link from 'next/link';
 import nookies from 'nookies';
 import jwt from 'jsonwebtoken';
 //Components
-import { AlurakutMenu } from '../../src/lib/AlurakutCommons';
+import AlurakutMenu from '../../src/lib/Menu';
 import ProfileSidebar from '../../src/components/ProfileSidebar';
 import ListPaging from '../../src/components/ListPaging';
 import ListAllProfileOrCommunity from '../../src/components/ListAllProfileOrCommunity';
@@ -56,7 +56,7 @@ const detailsCommunity = ({ githubUser }) => {
 
     return (
       <>
-          <AlurakutMenu />
+          <AlurakutMenu githubUser={githubUser}/>
           <MainGridPagesList >
             <div className="detailsArea" style={{ gridArea: 'detailsArea' }}>
               <ProfileSidebar gitHubUser={githubUser} />

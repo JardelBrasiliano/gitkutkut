@@ -17,7 +17,7 @@ const getListCommunity = async (userGithub, setCommunity) => {
         author
         members {
           id
-          name
+          title
         }
       }
     }`})

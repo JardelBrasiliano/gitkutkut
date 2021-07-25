@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { AlurakutProfileSidebarMenuDefault } from '../../lib/AlurakutCommons';
+import AlurakutProfileSidebarMenuDefault from '../../lib/AlurakutProfileSidebarMenuDefault';
 
 import Box from '../../styles/components/Box';
 

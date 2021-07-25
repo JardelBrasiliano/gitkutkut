@@ -5,8 +5,8 @@ import nookies from 'nookies';
 import jwt from 'jsonwebtoken';
 //Components
 import ProfileSidebar from "../src/components/ProfileSidebar";
-import { AlurakutMenu } from "../src/lib/AlurakutCommons";
 import ListAllProfileOrCommunity from "../src/components/ListAllProfileOrCommunity";
+import AlurakutMenu from "../src/lib/Menu";
 //Styles
 import BoxLarge from "../src/styles/components/BoxLarge";
 import MainGridPagesList from "../src/styles/components/MainGridPagesList";

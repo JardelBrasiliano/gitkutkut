@@ -4,7 +4,9 @@ import jwt from 'jsonwebtoken';
 //Import estilos
 import MainGrid from '../src/styles/components/MainGrid';
 import Box from '../src/styles/components/Box';
-import { AlurakutMenu, OrkutNostalgicIconSet } from '../src/lib/AlurakutCommons';
+//LIB
+import OrkutNostalgicIconSet from '../src/lib/OrkutNostalgicIconSet';
+import AlurakutMenu from '../src/lib/Menu';
 //Import Componentes
 import ProfileSidebar from '../src/components/ProfileSidebar';
 import ListProfilesOrCommunity from '../src/components/ListProfilesOrcommunity';
@@ -45,7 +47,7 @@ const Home = ({ githubUser }) => {
 
   return (
     <>
-      <AlurakutMenu githubUser={userLogged}/>
+      <AlurakutMenu githubUser={githubUser}/>
       <MainGrid>
         <div className="profileArea" style={{ gridArea: 'profileArea' }}>
             <ProfileSidebar gitHubUser={userLogged} />
