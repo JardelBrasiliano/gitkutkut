@@ -1,3 +1,5 @@
+import { useRouter } from "next/router";
+
 const API_TOKEN_READ = process.env.NEXT_PUBLIC_TOKEN_READ_DATO;
 
 const getListCommunity = async (userGithub, setCommunity) => {
@@ -84,7 +86,7 @@ const getMyCommunity = async (userGithub, setCommunity) => {
   })
 }
 
-const getAllMemberCommunity = async (nameCommunity, setMemberCommunity, setDetailsComminty) => {''
+const getAllMemberCommunity = async (nameCommunity, setMemberCommunity, setDetailsComminty, route) => {
   fetch('https://graphql.datocms.com/', {
     method: 'POST',
     headers: {
@@ -111,19 +113,24 @@ const getAllMemberCommunity = async (nameCommunity, setMemberCommunity, setDetai
   })
   .then(async (response) => {
     const finalCommunity = await response.json();
-    
-    const { id, author, description } = finalCommunity.data.allCommunities[0];
-    const finalList =  finalCommunity.data.allCommunities[0].members.map((member) => {
-      const modelMembers = {
-        id: member.id,
-        title: member.title,
-        image_url: member.imageUrl
-      }
-      return modelMembers;
-    });
+    const thereIsMember = finalCommunity.data.allCommunities.length > 0;
 
-    setDetailsComminty({id, author, description, totalMember: finalList.length});
-    setMemberCommunity(finalList);
+    if (thereIsMember) {
+      const { id, author, description } = finalCommunity.data.allCommunities[0];
+      const finalList = finalCommunity.data.allCommunities[0].members.map((member) => {
+        const modelMembers = {
+          id: member.id,
+          title: member.title,
+          image_url: member.imageUrl
+        }
+        return modelMembers;
+      })
+      setDetailsComminty({id, author, description, totalMember: finalList.length});
+      setMemberCommunity(finalList);
+    }else {
+      route.push('/');
+      console.log('volta pra comundiades');
+    }
   })
 }
 

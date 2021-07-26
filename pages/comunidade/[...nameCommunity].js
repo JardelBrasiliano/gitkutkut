@@ -97,7 +97,7 @@ const detailsCommunity = ({ githubUser }) => {
     const isPageMember = nameCommunity[1];
 
     useEffect(() => {
-      getAllMemberCommunity(nameCommunity[0], setListMembers, serDetailsCommunity);
+      getAllMemberCommunity(nameCommunity[0], setListMembers, serDetailsCommunity, router);
     }, [nameCommunity]);
 
     return (
@@ -129,7 +129,7 @@ const detailsCommunity = ({ githubUser }) => {
               <hr />
               
               {
-                isPageMember && listMembers.length > 0 ?
+                isPageMember ?
                 <ShowMemberCommunity listMember={listMembers}/>
                 :
                 detailsCommunity["id"] && <ShowDetailsCommunity details={detailsCommunity} nameCommnity={nameCommunity[0]}/>
