@@ -11,6 +11,7 @@ import ListAllProfileOrCommunity from '../../src/components/ListAllProfileOrComm
 //Styles
 import MainGridPagesList from '../../src/styles/components/MainGridPagesList';
 import BoxLarge from '../../src/styles/components/BoxLarge';
+import {ShowDetailsCommunityWrapper} from './style.ShowDetailsCommunity';
 //api
 import { getAllMemberCommunity } from '../../src/services/apiResquestDatoCMS';
 
@@ -34,9 +35,55 @@ const ShowMemberCommunity = ({listMember}) => {
   );
 };
 
-const ShowDetailsCommunity = () => {
+const ShowDetailsCommunity = ({nameCommnity, details}) => {
+  const corDeFundo1 = '#D9E6F6';
+  const corDeFundo2 = '#F1F9FE';
+
+  const valueId = details.id
+  const valueDescription = details.description;
+  const valueAuthor = details.author;
+  const quantMember = details.totalMember;
+
   return (
-    <h1>DETALHES</h1>
+    <ShowDetailsCommunityWrapper>
+      <li className="ShowDetailscommunity" key={`details-${valueId}`} style={{backgroundColor: corDeFundo1}} >
+        <div className="DetailsLeft">
+          <p>Descrição: </p>
+        </div>
+        <div className="DetailsRight">
+          <textarea 
+            name="descrição" 
+            rows="3"
+            disabled
+            value={valueDescription}
+          />
+        </div>
+      </li>
+      <li className="ShowDetailscommunity" key={`details-${valueId}`} style={{backgroundColor: corDeFundo2}} >
+        <div className="DetailsLeft">
+          <p>Idioma: </p>
+        </div>
+        <div className="DetailsRight">
+          <p>Português</p>
+        </div>
+      </li>
+      <li className="ShowDetailscommunity" key={`details-${valueId}`} style={{backgroundColor: corDeFundo1}} >
+        <div className="DetailsLeft">
+          <p>Dono: </p>
+        </div>
+        <div className="DetailsRight">
+          <Link href={`/perfil/${valueAuthor}/`}><a>{valueAuthor}</a></Link>
+        </div>
+      </li>
+      <li className="ShowDetailscommunity" key={`details-${valueId}`} style={{backgroundColor: corDeFundo2}} >
+        <div className="DetailsLeft">
+          <p>Membros: </p>
+        </div>
+        <div className="DetailsRight">
+          <Link href={`/comunidade/${nameCommnity}/membros`}><a>{quantMember}</a></Link>
+        </div>
+      </li>
+		</ShowDetailsCommunityWrapper>
   )
 };
 
@@ -50,8 +97,7 @@ const detailsCommunity = ({ githubUser }) => {
     const isPageMember = nameCommunity[1];
 
     useEffect(() => {
-      //Get no detalhe da comunidade
-      getAllMemberCommunity(nameCommunity[0], setListMembers);
+      getAllMemberCommunity(nameCommunity[0], setListMembers, serDetailsCommunity);
     }, [nameCommunity]);
 
     return (
@@ -83,10 +129,10 @@ const detailsCommunity = ({ githubUser }) => {
               <hr />
               
               {
-                isPageMember && listMembers.length > 0?
+                isPageMember && listMembers.length > 0 ?
                 <ShowMemberCommunity listMember={listMembers}/>
                 :
-                <ShowDetailsCommunity />
+                detailsCommunity["id"] && <ShowDetailsCommunity details={detailsCommunity} nameCommnity={nameCommunity[0]}/>
               }
               
             </BoxLarge>

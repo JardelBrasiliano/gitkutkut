@@ -4,7 +4,8 @@ const BoxLarge = styled.div`
   display: flex ;
   flex-direction: column;
   position: relative;
-
+  height: fit-content;
+  
   background: #FFFFFF;
   border-radius: 8px;
   padding: 16px;

@@ -84,7 +84,7 @@ const getMyCommunity = async (userGithub, setCommunity) => {
   })
 }
 
-const getAllMemberCommunity = async (nameCommunity, setMemberCommunity) => {''
+const getAllMemberCommunity = async (nameCommunity, setMemberCommunity, setDetailsComminty) => {''
   fetch('https://graphql.datocms.com/', {
     method: 'POST',
     headers: {
@@ -98,6 +98,9 @@ const getAllMemberCommunity = async (nameCommunity, setMemberCommunity) => {''
           title: {in: "${nameCommunity}"}
         }
       ){
+        id
+        description
+        author
         members {
           id
           title
@@ -108,6 +111,8 @@ const getAllMemberCommunity = async (nameCommunity, setMemberCommunity) => {''
   })
   .then(async (response) => {
     const finalCommunity = await response.json();
+    
+    const { id, author, description } = finalCommunity.data.allCommunities[0];
     const finalList =  finalCommunity.data.allCommunities[0].members.map((member) => {
       const modelMembers = {
         id: member.id,
@@ -116,7 +121,8 @@ const getAllMemberCommunity = async (nameCommunity, setMemberCommunity) => {''
       }
       return modelMembers;
     });
-    
+
+    setDetailsComminty({id, author, description, totalMember: finalList.length});
     setMemberCommunity(finalList);
   })
 }
