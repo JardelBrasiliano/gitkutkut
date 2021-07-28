@@ -5,7 +5,7 @@ import nookies from 'nookies';
 import jwt from 'jsonwebtoken';
 //Components
 import AlurakutMenu from '../../src/lib/Menu';
-import ProfileSidebar from '../../src/components/ProfileSidebar';
+import CommunitySidebar from '../../src/components/CommunitySideBar';
 import ListPaging from '../../src/components/ListPaging';
 import ListAllProfileOrCommunity from '../../src/components/ListAllProfileOrCommunity';
 //Styles
@@ -105,7 +105,7 @@ const detailsCommunity = ({ githubUser }) => {
           <AlurakutMenu githubUser={githubUser}/>
           <MainGridPagesList >
             <div className="detailsArea" style={{ gridArea: 'detailsArea' }}>
-              <ProfileSidebar gitHubUser={githubUser} />
+              <CommunitySidebar nameCommunity={nameCommunity[0]} imageCommunity={detailsCommunity.imageUrl}/>
             </div>
 
             <BoxLarge style={{ gridArea: 'mainArea' }}>

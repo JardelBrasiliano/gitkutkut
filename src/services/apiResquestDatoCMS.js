@@ -103,6 +103,7 @@ const getAllMemberCommunity = async (nameCommunity, setMemberCommunity, setDetai
         id
         description
         author
+        imageUrl
         members {
           id
           title
@@ -116,7 +117,7 @@ const getAllMemberCommunity = async (nameCommunity, setMemberCommunity, setDetai
     const thereIsMember = finalCommunity.data.allCommunities.length > 0;
 
     if (thereIsMember) {
-      const { id, author, description } = finalCommunity.data.allCommunities[0];
+      const { id, author, description, imageUrl } = finalCommunity.data.allCommunities[0];
       const finalList = finalCommunity.data.allCommunities[0].members.map((member) => {
         const modelMembers = {
           id: member.id,
@@ -125,7 +126,8 @@ const getAllMemberCommunity = async (nameCommunity, setMemberCommunity, setDetai
         }
         return modelMembers;
       })
-      setDetailsComminty({id, author, description, totalMember: finalList.length});
+      setDetailsComminty({id, author, description, totalMember: finalList.length, 
+        imageUrl});
       setMemberCommunity(finalList);
     }else {
       route.push('/');
